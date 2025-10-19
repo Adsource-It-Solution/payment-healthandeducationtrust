@@ -11,7 +11,6 @@ import {
   Lock,
   PartyPopper,
 } from "lucide-react";
-import Image from "next/image";
 import logo from "@/assests/logo-pdf.png";
 import { motion, AnimatePresence } from "framer-motion";
 

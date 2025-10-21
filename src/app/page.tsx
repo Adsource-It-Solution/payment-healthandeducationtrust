@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import {
-  HeartHandshake,
   Mail,
   Phone,
   MapPin,
@@ -9,7 +8,7 @@ import {
   PartyPopper,
   User,
   IndianRupee,
-  IdCard
+  IdCard,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assests/logo-pdf.png";
@@ -30,7 +29,7 @@ export default function DonationPage() {
     address: "",
     amount: "",
     donationtype: "",
-    pancard: ""
+    pancard: "",
   });
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -117,29 +116,34 @@ export default function DonationPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFF4E0] via-[#FFE3D3] to-[#FFD8BE] p-4 relative overflow-hidden">
-      {/* Decorative light blobs */}
-      <div className="absolute w-96 h-96 bg-orange-200/40 rounded-full blur-3xl -top-20 -left-20 animate-pulse" />
-      <div className="absolute w-96 h-96 bg-pink-200/40 rounded-full blur-3xl bottom-0 right-0 animate-pulse" />
+      {/* Decorative Blobs */}
+      <div className="absolute w-72 md:w-96 h-72 md:h-96 bg-orange-200/40 rounded-full blur-3xl -top-20 -left-20 animate-pulse" />
+      <div className="absolute w-72 md:w-96 h-72 md:h-96 bg-pink-200/40 rounded-full blur-3xl bottom-0 right-0 animate-pulse" />
 
-      <div className="relative w-full z-10 grid grid-cols-2">
-        {/* Header */}
-        <div className="text-center mt-8">
-          <Image src={logo} alt="Logo" />
-          <div className="gird grid-cols-1 justify-center items-center gap-3 relative top-20">
-            <div className="text-4xl font-bold text-orange-900">
-              Donate Now</div>
-            <p className="text-orange-700 mt-3 text-sm">
+      <div className="relative w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
+        {/* Left Section */}
+        <div className="text-center flex flex-col items-center justify-center px-6">
+          <Image
+            src={logo}
+            alt="Logo"
+            className="mx-auto w-28 md:w-40 h-auto"
+          />
+          <div className="grid grid-cols-1 justify-center items-center gap-3 mt-6">
+            <div className="text-3xl md:text-4xl font-bold text-orange-900">
+              Donate Now
+            </div>
+            <p className="text-orange-700 mt-3 text-sm md:text-base">
               “Your kindness lights the path for others 🌍”
             </p>
           </div>
-          <p className="fixed bottom-10 left-48 mt-6 text-orange-700 text-sm">
+          <p className="mt-8 md:mt-16 text-orange-700 text-sm md:text-base">
             Thank you for supporting Health & Education Trust ❤️
           </p>
         </div>
-        {/* Card */}
-        <div>
 
-          <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 p-8 md:p-10 relative overflow-hidden">
+        {/* Right Section (Form Card) */}
+        <div>
+          <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 p-6 sm:p-8 md:p-10 relative overflow-hidden">
             <AnimatePresence>
               {isSuccess && (
                 <motion.div
@@ -148,20 +152,49 @@ export default function DonationPage() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 flex flex-col items-center justify-center text-white rounded-3xl z-20"
                 >
-                  <PartyPopper className="w-16 h-16 mb-4 animate-bounce" />
-                  <h2 className="text-3xl font-bold mb-2">Thank You 💖</h2>
-                  <p className="text-white/90">Your donation makes a difference!</p>
+                  <PartyPopper className="w-12 h-12 md:w-16 md:h-16 mb-4 animate-bounce" />
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    Thank You 💖
+                  </h2>
+                  <p className="text-white/90 text-sm md:text-base">
+                    Your donation makes a difference!
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Basic Fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { label: "Full Name*", name: "name", icon: <User />, type: "text", placeholder: "Name" },
-                  { label: "Email*", name: "email", icon: <Mail />, type: "email", placeholder: "yourname@example.com" },
-                  { label: "Phone", name: "phone", icon: <Phone />, type: "tel", placeholder: "+91 XXXXX XXXXX" },
-                  { label: "Donation Amount*", name: "amount", icon: <IndianRupee />, type: "number", placeholder: "500" },
+                  {
+                    label: "Full Name*",
+                    name: "name",
+                    icon: <User />,
+                    type: "text",
+                    placeholder: "Name",
+                  },
+                  {
+                    label: "Email*",
+                    name: "email",
+                    icon: <Mail />,
+                    type: "email",
+                    placeholder: "yourname@example.com",
+                  },
+                  {
+                    label: "Phone",
+                    name: "phone",
+                    icon: <Phone />,
+                    type: "tel",
+                    placeholder: "+91 XXXXX XXXXX",
+                  },
+                  {
+                    label: "Donation Amount*",
+                    name: "amount",
+                    icon: <IndianRupee />,
+                    type: "number",
+                    placeholder: "500",
+                  },
                 ].map((field) => (
                   <div key={field.name} className="flex flex-col">
                     <label className="block text-sm font-semibold text-orange-800 mb-2">
@@ -184,7 +217,9 @@ export default function DonationPage() {
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+
+              {/* PAN + Donation Type */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-orange-800 mb-2">
                     Pan Card*
@@ -202,38 +237,34 @@ export default function DonationPage() {
                     />
                   </div>
                 </div>
+
                 <div>
                   <label className="block text-sm font-semibold text-orange-800 mb-2">
                     Donation for*
                   </label>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-donation-select-label">Select</InputLabel>
+                  <FormControl fullWidth size="small">
+                    <InputLabel id="donation-select-label">Select</InputLabel>
                     <Select
-                      labelId="demo-donation-select-label"
-                      id="demo-donation-select"
+                      labelId="donation-select-label"
+                      id="donation-select"
                       value={formData.donationtype}
                       label="Donation for"
                       onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, donationtype: e.target.value }))
+                        setFormData((prev) => ({
+                          ...prev,
+                          donationtype: e.target.value,
+                        }))
                       }
-                      MenuProps={{
-                        PaperProps: {
-                          style: {
-                            maxHeight: 48 * 3.5,
-                            overflowY: "auto",
-                          },
-                        },
-                      }}
                       sx={{
+                        "& .MuiSelect-select": {
+                          color: "#78350f",
+                          backgroundColor: "rgba(255,255,255,0.8)",
+                        },
                         "& .MuiOutlinedInput-notchedOutline": {
                           borderColor: "#fbbf24",
                         },
                         "&:hover .MuiOutlinedInput-notchedOutline": {
                           borderColor: "#fb923c",
-                        },
-                        "& .MuiSelect-select": {
-                          color: "#78350f",
-                          backgroundColor: "rgba(255,255,255,0.8)",
                         },
                         "& .MuiSvgIcon-root": {
                           color: "#fb923c",
@@ -242,15 +273,15 @@ export default function DonationPage() {
                       }}
                     >
                       <MenuItem value="Baby Vinayak">Baby Vinayak</MenuItem>
-                      <MenuItem value="Avleen kaur">Avleen kaur</MenuItem>
+                      <MenuItem value="Avleen kaur">Avleen Kaur</MenuItem>
                       <MenuItem value="Mother Saroj Devi">Mother Saroj Devi</MenuItem>
-                      <MenuItem value="Baby Samarjot singh">Baby Samarjot singh</MenuItem>
+                      <MenuItem value="Baby Samarjot Singh">Baby Samarjot Singh</MenuItem>
                       <MenuItem value="Ahmad Raza">Ahmad Raza</MenuItem>
                       <MenuItem value="Baby Raj">Baby Raj</MenuItem>
                       <MenuItem value="Baby Ankush">Baby Ankush</MenuItem>
                       <MenuItem value="Dry Ration Kit">Dry Ration Kit</MenuItem>
                       <MenuItem value="Old Age Home">Old Age Home</MenuItem>
-                      <MenuItem value="Education and Health">Education &amp; Health</MenuItem>
+                      <MenuItem value="Education & Health">Education & Health</MenuItem>
                       <MenuItem value="Wheel Chair">Wheel Chair</MenuItem>
                       <MenuItem value="Blankets">Blankets</MenuItem>
                       <MenuItem value="Animal’s Feeding">Animal’s Feeding</MenuItem>
@@ -259,6 +290,7 @@ export default function DonationPage() {
                 </div>
               </div>
 
+              {/* Address */}
               <div>
                 <label className="block text-sm font-semibold text-orange-800 mb-2">
                   Address
@@ -270,17 +302,21 @@ export default function DonationPage() {
                     rows={3}
                     value={formData.address}
                     onChange={handleInputChange}
-                    placeholder="Enter your complete address"
                     required
+                    placeholder="Enter your complete address"
                     className="w-full pl-12 pr-4 py-3 bg-white border border-orange-200 rounded-xl text-orange-900 placeholder-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400 transition resize-none"
                   />
                 </div>
               </div>
+
               <div className="flex items-center gap-2 text-sm text-orange-700 bg-orange-50 p-3 rounded-lg">
                 <Lock className="w-4 h-4 text-green-500" />
                 <span>Your payment is 100% secure and encrypted</span>
               </div>
-              <span className="text-orange-700 text-sm">All field with <span className="text-black">*</span> is mandatory. </span>
+
+              <p className="text-orange-700 text-sm">
+                All fields with <span className="text-black">*</span> are mandatory.
+              </p>
 
               <button
                 type="submit"

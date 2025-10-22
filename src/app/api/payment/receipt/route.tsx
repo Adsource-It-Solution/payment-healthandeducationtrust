@@ -73,7 +73,7 @@ export async function POST(req: Request) {
 
       <!-- Header with Logo -->
       <div style="text-align: center; margin-bottom: 30px;">
-        <img src="https://yourcdn.com/logo.png" alt="Health and Education Trust" width="100" style="margin-bottom:10px;" />
+        <img src="@/assets/logo-pdf.png" alt="Health and Education Trust" width="100" style="margin-bottom:10px;" />
         <h2 style="color: #d35400; margin: 0;">Health and Education Trust</h2>
         <p style="color:#666; font-size: 13px; margin:4px 0;">Registered NGO | Promoting Health & Education Initiatives</p>
       </div>
@@ -129,6 +129,8 @@ export async function POST(req: Request) {
         },
       ],
     });
+
+    
     return NextResponse.json({
       success: true,
       message: "Receipt sent successfully to user and company",

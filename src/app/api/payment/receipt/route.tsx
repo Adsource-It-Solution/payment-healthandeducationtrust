@@ -41,27 +41,86 @@ export async function POST(req: Request) {
       },
     });
 
-    // 5️⃣ Define recipients — user + company
+
     const recipients = [
-      transaction.email,              // customer
-      process.env.COMPANY_EMAIL!,     // company (added in your .env)
+      transaction.email,
+      process.env.COMPANY_EMAIL!,
     ];
 
     // 6️⃣ Send email with PDF
     await transporter.sendMail({
-      from: `"Edunova Payments" <${process.env.EMAIL_USER!}>`,
+      from: `"Health And Education Trust" <${process.env.EMAIL_USER!}>`,
       to: recipients,
       subject: `Payment Receipt - ₹${transaction.amount}`,
-      text: `Dear ${transaction.name},
+      html: `
+  <div style="
+    background: url('https://yourcdn.com/background-logo.png') no-repeat center top;
+    background-size: contain;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #333;
+  ">
+    <div style="
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffffcc;
+      backdrop-filter: blur(4px);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 30px 40px;
+    ">
 
-Thank you for your payment of ₹${transaction.amount}.
-Attached is your official payment receipt.
+      <!-- Header with Logo -->
+      <div style="text-align: center; margin-bottom: 30px;">
+        <img src="https://yourcdn.com/logo.png" alt="Health and Education Trust" width="100" style="margin-bottom:10px;" />
+        <h2 style="color: #d35400; margin: 0;">Health and Education Trust</h2>
+        <p style="color:#666; font-size: 13px; margin:4px 0;">Registered NGO | Promoting Health & Education Initiatives</p>
+      </div>
 
-Transaction ID: ${transaction._id}
-Date: ${new Date(transaction.createdAt).toLocaleString()}
+      <!-- Greeting -->
+      <p style="font-size: 15px;">Dear <strong>${transaction.name}</strong>,</p>
 
-Regards,
-Edunova Payments`,
+      <p style="font-size: 15px; line-height: 1.6;">
+        We sincerely thank you for your generous donation of 
+        <strong>₹${transaction.amount}</strong>.
+        Your support helps us continue our mission to improve lives through education and healthcare.
+      </p>
+
+      <!-- Transaction Details -->
+      <div style="margin-top: 25px;">
+        <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+          <tr>
+            <td style="padding: 8px 0; color:#444;"><strong>Transaction ID:</strong></td>
+            <td style="padding: 8px 0; color:#444;">${transaction._id}</td>
+          </tr>
+          <tr style="border-top:1px solid #eee;">
+            <td style="padding: 8px 0; color:#444;"><strong>Date:</strong></td>
+            <td style="padding: 8px 0; color:#444;">${new Date(transaction.createdAt).toLocaleString()}</td>
+          </tr>
+          <tr style="border-top:1px solid #eee;">
+            <td style="padding: 8px 0; color:#444;"><strong>Payment Mode:</strong></td>
+            <td style="padding: 8px 0; color:#444;">Online via Razorpay</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Footer -->
+      <div style="margin-top: 40px; text-align: center;">
+        <p style="font-size: 14px; color:#555;">
+          Your official receipt is attached to this email as a PDF document.<br/>
+          Please keep it for your records.
+        </p>
+        <p style="margin-top:20px; font-size:13px; color:#888;">
+          Warm regards,<br/>
+          <strong>Health and Education Trust</strong><br/>
+          <span style="font-size:12px;">New Delhi, India</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+  `,
       attachments: [
         {
           filename: "receipt.pdf",
@@ -70,7 +129,6 @@ Edunova Payments`,
         },
       ],
     });
-
     return NextResponse.json({
       success: true,
       message: "Receipt sent successfully to user and company",

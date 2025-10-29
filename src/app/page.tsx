@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assests/logo-pdf.png";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Image from "next/image";
 
 declare global {
@@ -46,6 +45,11 @@ export default function DonationPage() {
     e.preventDefault();
     setIsProcessing(true);
 
+    if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
+      alert("Please fill in all required fields");
+      setIsProcessing(false);
+      return;
+    }
     try {
       const orderRes = await fetch("/api/payment/order", {
         method: "POST",
@@ -182,7 +186,7 @@ export default function DonationPage() {
                     placeholder: "yourname@example.com",
                   },
                   {
-                    label: "Phone",
+                    label: "Phone*",
                     name: "phone",
                     icon: <Phone />,
                     type: "tel",
@@ -222,7 +226,7 @@ export default function DonationPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-orange-800 mb-2">
-                    Pan Card*
+                    Pan Card
                   </label>
                   <div className="relative">
                     <IdCard className="absolute left-4 top-4 text-orange-500" />
@@ -231,7 +235,6 @@ export default function DonationPage() {
                       name="pancard"
                       value={formData.pancard}
                       onChange={handleInputChange}
-                      required
                       placeholder="Pan Card"
                       className="w-full pl-12 pr-4 py-3 bg-white border border-orange-200 rounded-xl text-orange-900 placeholder-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
                     />
@@ -240,53 +243,16 @@ export default function DonationPage() {
 
                 <div>
                   <label className="block text-sm font-semibold text-orange-800 mb-2">
-                    Donation for*
+                    Donation for
                   </label>
-                  <FormControl fullWidth size="small">
-                    <InputLabel id="donation-select-label">Select</InputLabel>
-                    <Select
-                      labelId="donation-select-label"
-                      id="donation-select"
+                  <input
+                      type="text"
+                      name="pancard"
                       value={formData.donationtype}
-                      label="Donation for"
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          donationtype: e.target.value,
-                        }))
-                      }
-                      sx={{
-                        "& .MuiSelect-select": {
-                          color: "#78350f",
-                          backgroundColor: "rgba(255,255,255,0.8)",
-                        },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#fbbf24",
-                        },
-                        "&:hover .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#fb923c",
-                        },
-                        "& .MuiSvgIcon-root": {
-                          color: "#fb923c",
-                        },
-                        borderRadius: "12px",
-                      }}
-                    >
-                      <MenuItem value="Baby Vinayak">Baby Vinayak</MenuItem>
-                      <MenuItem value="Avleen kaur">Avleen Kaur</MenuItem>
-                      <MenuItem value="Mother Saroj Devi">Mother Saroj Devi</MenuItem>
-                      <MenuItem value="Baby Samarjot Singh">Baby Samarjot Singh</MenuItem>
-                      <MenuItem value="Ahmad Raza">Ahmad Raza</MenuItem>
-                      <MenuItem value="Baby Raj">Baby Raj</MenuItem>
-                      <MenuItem value="Baby Ankush">Baby Ankush</MenuItem>
-                      <MenuItem value="Dry Ration Kit">Dry Ration Kit</MenuItem>
-                      <MenuItem value="Old Age Home">Old Age Home</MenuItem>
-                      <MenuItem value="Education & Health">Education & Health</MenuItem>
-                      <MenuItem value="Wheel Chair">Wheel Chair</MenuItem>
-                      <MenuItem value="Blankets">Blankets</MenuItem>
-                      <MenuItem value="Animal’s Feeding">Animal’s Feeding</MenuItem>
-                    </Select>
-                  </FormControl>
+                      onChange={handleInputChange}
+                      placeholder="Donation For"
+                      className="w-full pl-12 pr-4 py-3 bg-white border border-orange-200 rounded-xl text-orange-900 placeholder-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                    />
                 </div>
               </div>
 
@@ -302,7 +268,6 @@ export default function DonationPage() {
                     rows={3}
                     value={formData.address}
                     onChange={handleInputChange}
-                    required
                     placeholder="Enter your complete address"
                     className="w-full pl-12 pr-4 py-3 bg-white border border-orange-200 rounded-xl text-orange-900 placeholder-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400 transition resize-none"
                   />

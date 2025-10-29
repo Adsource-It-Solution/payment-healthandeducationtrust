@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       subject: `Payment Receipt - ₹${transaction.amount}`,
       html: `
   <div style="
-    background: url('https://yourcdn.com/background-logo.png') no-repeat center top;
+    background: url('/logo-pdf.png') no-repeat center top;
     background-size: contain;
     padding: 40px 20px;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -73,7 +73,6 @@ export async function POST(req: Request) {
 
       <!-- Header with Logo -->
       <div style="text-align: center; margin-bottom: 30px;">
-        <img src="@/assets/logo-pdf.png" alt="Health and Education Trust" width="100" style="margin-bottom:10px;" />
         <h2 style="color: #d35400; margin: 0;">Health and Education Trust</h2>
         <p style="color:#666; font-size: 13px; margin:4px 0;">Registered NGO | Promoting Health & Education Initiatives</p>
       </div>
@@ -95,9 +94,14 @@ export async function POST(req: Request) {
             <td style="padding: 8px 0; color:#444;">${transaction._id}</td>
           </tr>
           <tr style="border-top:1px solid #eee;">
+            <td style="padding: 8px 0; color:#444;"><strong>Amount:</strong></td>
+            <td style="padding: 8px 0; color:#444;">${transaction.amount}</td>
+          </tr>
+          <tr style="border-top:1px solid #eee;">
             <td style="padding: 8px 0; color:#444;"><strong>Date:</strong></td>
             <td style="padding: 8px 0; color:#444;">${new Date(transaction.createdAt).toLocaleString()}</td>
           </tr>
+          
           <tr style="border-top:1px solid #eee;">
             <td style="padding: 8px 0; color:#444;"><strong>Payment Mode:</strong></td>
             <td style="padding: 8px 0; color:#444;">Online via Razorpay</td>

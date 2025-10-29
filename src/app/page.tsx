@@ -13,6 +13,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assests/logo-pdf.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 
 declare global {
   interface Window {
@@ -31,6 +33,7 @@ export default function DonationPage() {
     pancard: "",
   });
 
+  const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -97,7 +100,9 @@ export default function DonationPage() {
               donationtype: "",
               pancard: "",
             });
-            setTimeout(() => setIsSuccess(false), 4000);
+            setTimeout(() => {
+              router.push("https://healthandeducationtrust.org");
+            }, 3000);
           }
           setIsProcessing(false);
         },

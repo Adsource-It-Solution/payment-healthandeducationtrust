@@ -198,8 +198,9 @@ export default function ReceiptDocument({ transaction }: any) {
               <Text style={styles.cellValue}>HTR_{Math.floor(Math.random() * 900000)}</Text>
               <Text style={styles.cellLabel}>Date:</Text>
               <Text style={styles.cellValue}>
-                {new Date(createdAt).toLocaleDateString()}
+                {new Date(createdAt).toLocaleDateString('en-GB')}
               </Text>
+
             </View>
             <View style={styles.row}>
               <Text style={styles.cellLabel}>Donor Name:</Text>
@@ -254,13 +255,13 @@ export default function ReceiptDocument({ transaction }: any) {
           {/* QR + Signature */}
           <Text style={{ textAlign: "center", fontSize: 16, color: "#00695c", fontWeight: "bold", marginBottom: 5, marginTop: 5 }}>
             FOR HEALTH AND EDUCATION TRUST</Text>
-            <View style={styles.signBox}>
-              <View style={styles.borderbox2}>
-                <Image style={styles.sign} src={signbase64} />
-              </View>
-
-              <Text style={styles.noteText}>Authorized Signature</Text>
+          <View style={styles.signBox}>
+            <View style={styles.borderbox2}>
+              <Image style={styles.sign} src={signbase64} />
             </View>
+
+            <Text style={styles.noteText}>Authorized Signature</Text>
+          </View>
 
           {/* Footer */}
           <View style={styles.footer}>
